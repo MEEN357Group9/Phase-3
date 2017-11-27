@@ -25,15 +25,15 @@ value1 = 0;
 value2 = 0;
 value3 = FSAE_Race_Car;
 value4 = 'full_car_3_DOF';
-value5 = @trajectory;
+value5 = @(t, X, h, t_in, t_out, V_in, V_out, FSAE_Race_Car)trajectory(t, X, h, t_in, t_out, V_in, V_out, FSAE_Race_Car);
 value6 = 0; % sec
 value7 = 2; % sec
 value8 = 30; %mph
 value9 = 20; % mph
 value10 = 5000; 
-value11 = @agony;
+value11 = @(wheelbase,X_enter,X,V)agony(wheelbase,X_enter,X,V);
 value12 = 0; % ft
-value13 = @agony;
+value13 = @(wheelbase,X_enter,X,V)agony(wheelbase,X_enter,X,V);
 value14 = 2; % ft
 
 % Now to set up the struct for the car
