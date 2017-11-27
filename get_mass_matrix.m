@@ -60,7 +60,7 @@ elseif strcmp(ad2,vibration_model) == 1
         / 2 / 32.2; % slugs
     
     % matrix form
-    M = [m, 0; 0, mw];
+    M = [m 0; 0 mw];
     
 elseif strcmp(ad3, vibration_model) == 1
     % M matrix for half car 2 DOF
@@ -71,7 +71,7 @@ elseif strcmp(ad3, vibration_model) == 1
         + FSAE_Race_Car.power_plant.weight ) / 2 / 32.2 ; % slugs
     
     % the moment of interia
-    J = get_Jy(FSAE_Race_Car); % slug ft^2
+    J = get_Jy(FSAE_Race_Car)/2; % slug ft^2
     
     % matrix form
     M = [m 0; 0 J];
@@ -85,7 +85,7 @@ elseif strcmp(ad4, vibration_model) == 1
         + FSAE_Race_Car.power_plant.weight ) / 2 / 32.2 ; % slugs
     
     % the moment of interia 
-    J = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    J = get_Jy(FSAE_Race_Car)/2; % slug ft^2 / rad
     
     % front wheel mass 
     mf = ( FSAE_Race_Car.wheel_front.weight ) / 32.2; % slugs
@@ -101,4 +101,3 @@ else
 end
 
 end
-
