@@ -26,15 +26,15 @@ value1 = 0;
 value2 = 0;
 value3 = FSAE_Race_Car;
 value4 = 'full_car_7_DOF';
-value5 = @trajectory;
+value5 = @(t, X, h, t_in, t_out, V_in, V_out, FSAE_Race_Car)trajectory(t, X, h, t_in, t_out, V_in, V_out, FSAE_Race_Car);
 value6 = 0; % sec
 value7 = 1.5; % sec
 value8 = 5; %mph
 value9 = 5; % mph
 value10 = 2500; 
-value11 = @speed_bump;
+value11 = @(wheelbase,X_enter,X,V)speed_bump(wheelbase,X_enter,X,V);
 value12 = 1; % ft
-value13 = @speed_bump;
+value13 = @(wheelbase,X_enter,X,V)speed_bump(wheelbase,X_enter,X,V);
 value14 = 3; % ft
 
 % Set up data struct
