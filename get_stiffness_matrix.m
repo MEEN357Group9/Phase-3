@@ -18,25 +18,26 @@ ad4 = 'half_car_4_DOF';
 ad5 = 'full_car_3_DOF';
 ad6 = 'full_car_7_DOF';
 
-%{
+
 % input error checking
 if ~ischar(vibration_model) 
     % the vibration model input is not a string
     error('vibration_model must be a string');
 elseif strcmp(ad1,vibration_model) || strcmp(ad2,vibration_model) ...
         || strcmp(ad3,vibration_model) || strcmp(ad4, vibration_model)...
+        || strcmp(ad5,vibration_model) || strcmp(ad6, vibration_model)
         
     % all clear for run
 elseif ~strcmp(ad1,vibration_model) && ~strcmp(ad2,vibration_model) ...
-        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)
+        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)...
+        && ~strcmp(ad5,vibration_model) && ~strcmp(ad6,vibration_model)
     % not the proper string
-    error('The string for vibration_model must be either ''quarter_car_1_DOF'' or  ''quarter_car_2_DOF''.');
+    error('The string for vibration_model must be either ''quarter_car_1_DOF'', ''quarter_car_2_DOF'', ''half_car_2_DOF'',  ''half_car_4_DOF'', ''full_car_3_DOF'', or ''full_car_7_DOF''. ');
     
 elseif ~isstruct(FSAE_Race_Car) 
     error('FSAE_Race_Car must be a structure');
 else
 end
-%}
 
 % actual calculation and composition
 if strcmp('quarter_car_1_DOF', vibration_model)
@@ -194,8 +195,6 @@ elseif strcmp(ad6, vibration_model)
         -k3, -k3*lr, -k3*rr, 0, 0, k3+kpr, 0;...
         -k4, -k4*lr, k4*rr, 0, 0, 0, k4+kdr];
         
-        
-
 else 
     error('something went wrong')
 end
