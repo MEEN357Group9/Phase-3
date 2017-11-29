@@ -161,7 +161,7 @@ elseif strcmp(ad5, vibration_model)
         
     K = [k1+k2+k3+k4, -(k1+k2)*lf+(k3+k4)*lr, -(k1-k2)*rf+(k3-k4)*rr;...
         -(k1+k2)*lf+(k3+k4)*lr, (k1+k2)*lf^2+(k3+k4)*lr^2, (k1-k2)*lf*rf+(k3-k4)*lr*rr;...
-        -(k1-k2)*rf+(k3-k4)*rr, (k1-k2)*lf*rf+(k3-k4)*lr*rr, (k1+k2)*rf^2+(k3+k4)*rr^2]
+        -(k1-k2)*rf+(k3-k4)*rr, (k1-k2)*lf*rf+(k3-k4)*lr*rr, (k1+k2)*rf^2+(k3+k4)*rr^2];
     
 elseif strcmp(ad6, vibration_model)
     
