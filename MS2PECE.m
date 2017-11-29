@@ -1,4 +1,4 @@
-function [T, X, V, A] = MS2PEDE(X0, V0, A0, M, C, K FN, D)
+function [T, X, V, A] = MS2PECE(X0, V0, A0, M, C, K FN, D)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 t = 0.5;
@@ -16,32 +16,38 @@ T(1) = D.t_in;
 % integrate for the displacement x and velocity v
 
 % step size
-h = (D.t_out - D.t_in)/D.N;
+h = (D.t_out - D.t_in)./D.N;
 
-X1p = X0 + h*V0 + h^2/2*A0;
+X1p = X0 + h*V0 + h.^2./2*A0;
 
 V1p = V0 +h*A0;
 
 %% Evaluate
-A1p = M^(-1) * ( FN(t,D) - C*V1p - K*X1p);
+A1p = M.^(-1) * ( FN(t,D) - C*V1p - K*X1p);
 
 %% Correct 
-X1 = X0 + h/2*(V1p + V0) - h^2/12*(A1p-A0);
 
-V1 = V0 + h/2*(A1p+A0);
+t1 = D.t_in + h;
+X1 = X0 + h./2*(V1p + V0) - h.^2./12*(A1p-A0);
+
+V1 = V0 + h./2*(A1p+A0);
 
 %% Evaluate
 
-A1 = M^(-1) * (FN(t,D) - C*V1 - K*X1);
+A1 = M.^(-1) * (FN(t,D) - C*V1 - K*X1);
 
+T(2) = t1;
+X(2) = X1;
+V(2) = V1;
+A(2) = A1;
 
 %% Remaining
-for i = 1:D.N
+for i = 2:D.N
     
     % predict
-    
+    X1p = 1./3*(4 * 
     
 
-
+end
 end
 
