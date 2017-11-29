@@ -15,6 +15,8 @@ ad1 = 'quarter_car_1_DOF';
 ad2 = 'quarter_car_2_DOF';
 ad3 = 'half_car_2_DOF';
 ad4 = 'half_car_4_DOF';
+ad5 = 'full_car_3_DOF';
+ad6 = 'full_car_7_DOF';
 
 
 % input error checking
@@ -22,10 +24,12 @@ if ~ischar(vibration_model)
     % the vibration model input is not a string
     error('vibration_model must be a string');
 elseif strcmp(ad1,vibration_model) || strcmp(ad2,vibration_model) ...
-        || strcmp(ad3,vibration_model) || strcmp(ad4, vibration_model)
+        || strcmp(ad3,vibration_model) || strcmp(ad4, vibration_model)...
+        || strcmp(ad5,vibration_model) || strcmp(ad6, vibration_model)
     % all clear for run
 elseif ~strcmp(ad1,vibration_model) && ~strcmp(ad2,vibration_model) ...
-        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)
+        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)...
+        && ~strcmp(ad5, vibration_model) && ~strcmp(ad6, vibration_model)
     % not the proper string
     error('The string for vibration_model must be either ''quarter_car_1_DOF'' or  ''quarter_car_2_DOF''.');
     
@@ -96,7 +100,35 @@ elseif strcmp(ad4, vibration_model) == 1
     % mass matrix
     M = [m 0 0 0; 0 J 0 0; 0 0 mf 0; 0 0 0 mr];
     
+elseif strcmp(ad5,vibration_model)
+    % M matrix for the full car 3 DOF
+    m = ( FSAE_Race_Car.chassis.weight + FSAE_Race_Car.pilot.weight ...
+        + FSAE_Race_Car.power_plant.weight ) / 32.2 ; % slugs
+    % the moment of interia 
+    Jy = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    Jx = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    
+    M = [m 0 0;0 Jy 0;0 0 Jx];
+    
+elseif strcmp(ad6,vibration_model)
+    % M matrix for the full car 7 DOF
+    m = ( FSAE_Race_Car.chassis.weight + FSAE_Race_Car.pilot.weight ...
+        + FSAE_Race_Car.power_plant.weight ) / 32.2 ; % slugs
+    % the moment of interia 
+    Jy = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    Jx = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    mf = ( FSAE_Race_Car.wheel_front.weight ) / 32.2; % slugs
+    mr = ( FSAE_Race_Car.wheel_rear.weight ) / 32.2; % slugs
+    
+    M = [m 0 0 0 0 0 0 0;
+        0 Jy 0 0 0 0 0;
+        0 0 Jx 0 0 0 0;
+        0 0 0 mf 0 0 0;
+        0 0 0 0 mf 0 0;
+        0 0 0 0 0 mr 0;
+        0 0 0 0 0 0 mr];
 else
+    
     error('something went wrong');
 end
 
