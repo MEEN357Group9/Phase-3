@@ -27,7 +27,7 @@ end
     ff_data.X_enter_d, X, V);
 
 %Passenger
-[R_pf, R_pr, dRdt_pf, dRdt_pr] =  ff_data.roadway_p(ff_data.car.chassis.wheelbase/12,...
+[R_f_p, R_r_p, dRdt_f_p, dRdt_r_p] =  ff_data.roadway_p(ff_data.car.chassis.wheelbase/12,...
     ff_data.X_enter_p, X, V);
 
 
@@ -78,7 +78,8 @@ switch ff_data.model
         k=(ff_data.car.wheel_front.k+ff_data.car.wheel_rear.k)/2*12; % ft
 
         % forcing function matrix 
-        FF=[w; ww-c*dRdt_df-k*R_df];
+        FF=[w;...
+           ww-c*dRdt_df-k*R_df];
     case 'half_car_2_DOF'
         % For half car 2 DOF
         % For driver only
