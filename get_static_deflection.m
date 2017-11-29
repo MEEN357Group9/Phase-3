@@ -19,25 +19,30 @@ ad4 = 'half_car_4_DOF';
 ad5 = 'full_car_3_DOF';
 ad6 = 'full_car_7_DOF';
 
+
+
 % input error checking
 if ~ischar(vibration_model) 
     % the vibration model input is not a string
     error('vibration_model must be a string');
 elseif strcmp(ad1,vibration_model) || strcmp(ad2,vibration_model) ...
         || strcmp(ad3,vibration_model) || strcmp(ad4, vibration_model)...
+        || strcmp(ad5,vibration_model) || strcmp(ad6, vibration_model)
     % all clear for run
 elseif ~strcmp(ad1,vibration_model) && ~strcmp(ad2,vibration_model) ...
-        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)
+        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)...
+        && ~strcmp(ad5,vibration_model) && ~strcmp(ad6,vibration_model)
     % not the proper string
-    error('The string for vibration_model must be either ''quarter_car_1_DOF'' or  ''quarter_car_2_DOF''.');
+    error('The string for vibration_model must be either ''quarter_car_1_DOF'', ''quarter_car_2_DOF'', ''half_car_2_DOF'',  ''half_car_4_DOF'', ''full_car_3_DOF'', or ''full_car_7_DOF''. ');
     
 elseif ~isstruct(FSAE_Race_Car) 
     error('FSAE_Race_Car must be a structure');
 else
 end
 
+
 % actual calculation and composition
-if strcmp('quarter_car_1_DOF', vibration_model)
+if strcmp(ad1, vibration_model)
     % For 1 DOF
     % find the stiffness
     K = get_stiffness_matrix(vibration_model, FSAE_Race_Car);
@@ -52,7 +57,7 @@ if strcmp('quarter_car_1_DOF', vibration_model)
     z0 = w/K(1); % gives units of ft
     
     
-elseif strcmp('quarter_car_2_DOF', vibration_model)
+elseif strcmp(ad2, vibration_model)
     % For 2 DOF
     % find the stiffness
     K = get_stiffness_matrix(vibration_model, FSAE_Race_Car);
@@ -103,6 +108,32 @@ elseif strcmp(ad4, vibration_model)
     
     z0 = K\W; % ft or rad
     
+elseif strcmp(ad5, vibration_model)
+    % For full car 3 DOF
+    % find the stiffness
+    K = get_stiffness_matrix(vibration_model, FSAE_Race_Car);
+    % gives units of lbf/ft or ft lbf/rad
+    
+    % find the weight (half)
+    w = ( FSAE_Race_Car.chassis.weight + FSAE_Race_Car.pilot.weight + ...
+        FSAE_Race_Car.power_plant.weight); % lbf
+    
+    M = get_mass_matrix(vibration_model, FSAE_Race_Car);
+    
+    W = [w;0;0;M(4,4)*32.174;M(5,5)*32.174;M(6,6)*32.174;M(7,7)*32.174];
+    
+    z0 = K\W;
+
+elseif strcmp(ad6, vibration_model)
+    % For full car 3 DOF
+    % find the stiffness
+    K = get_stiffness_matrix(vibration_model, FSAE_Race_Car);
+    % gives units of lbf/ft or ft lbf/rad
+    
+    % find the weight (half)
+    w = ( FSAE_Race_Car.chassis.weight + FSAE_Race_Car.pilot.weight + ...
+        FSAE_Race_Car.power_plant.weight); % lbf
+    W = [w;0;0,];
 end
 
 end

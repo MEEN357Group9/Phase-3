@@ -25,12 +25,14 @@ if ~ischar(vibration_model)
     error('vibration_model must be a string');
 elseif strcmp(ad1,vibration_model) || strcmp(ad2,vibration_model) ...
         || strcmp(ad3,vibration_model) || strcmp(ad4, vibration_model)...
+        || strcmp(ad5,vibration_model) || strcmp(ad6, vibration_model)
         
     % all clear for run
 elseif ~strcmp(ad1,vibration_model) && ~strcmp(ad2,vibration_model) ...
-        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)
+        && ~strcmp(ad3,vibration_model) && ~strcmp(ad4,vibration_model)...
+        && ~strcmp(ad5,vibration_model) && ~strcmp(ad6,vibration_model)
     % not the proper string
-    error('The string for vibration_model must be either ''quarter_car_1_DOF'' or  ''quarter_car_2_DOF''.');
+    error('The string for vibration_model must be either ''quarter_car_1_DOF'', ''quarter_car_2_DOF'', ''half_car_2_DOF'',  ''half_car_4_DOF'', ''full_car_3_DOF'', or ''full_car_7_DOF''. ');
     
 elseif ~isstruct(FSAE_Race_Car) 
     error('FSAE_Race_Car must be a structure');
@@ -146,9 +148,20 @@ elseif strcmp(ad5, vibration_model)
     lf = cg; % ft
     lr = l - cg; % ft
     
-    K = [k1+k2+k3+k4, -(k1+k2)*lf+(k3+k4)*lr, -(k1-k2)*rf +(k3-k4)*rr;...
-        -(k1+k2)*lf +(k3+k4)*lr, (k1+k2)*lf^2+(k3+k4)*lr^2, (k1-k2)*lf*rf +(k3-k4)*lr*rr;...
-        -(k1-k2)*rf +(k3-k4)*rr, (k1-k2)*lf*rf +(k3-k4)*lr*rr, (k1+k2)*rf^2+(k3+k4)*rr^2]; 
+    rf = FSAE_Race_Car.chassis.radius_f/12; % ft
+    rr = FSAE_Race_Car.chassis.radius_r/12; % ft
+    
+    k1LR = get_leverage_ratio('front', FSAE_Race_Car); 
+    k1 = k1LR * FSAE_Race_Car.suspension_front.k * 12; % ft
+    k2 = k1;
+    
+    k3LR = get_leverage_ratio('rear', FSAE_Race_Car);
+    k3 = k3LR * FSAE_Race_Car.suspension_rear.k * 12; % ft
+    k4 = k3;
+        
+    K = [k1+k2+k3+k4, -(k1+k2)*lf+(k3+k4)*lr, -(k1-k2)*rf+(k3-k4)*rr;...
+        -(k1+k2)*lf+(k3+k4)*lr, (k1+k2)*lf^2+(k3+k4)*lr^2, (k1-k2)*lf*rf+(k3-k4)*lr*rr;...
+        -(k1-k2)*rf+(k3-k4)*rr, (k1-k2)*lf*rf+(k3-k4)*lr*rr, (k1+k2)*rf^2+(k3+k4)*rr^2]
     
 elseif strcmp(ad6, vibration_model)
     
@@ -158,16 +171,30 @@ elseif strcmp(ad6, vibration_model)
     lf = cg; % ft
     lr = l - cg; % ft
     
+    rf = FSAE_Race_Car.chassis.radius_f/12; % ft
+    rr = FSAE_Race_Car.chassis.radius_r/12; % ft
+    
+    k1LR = get_leverage_ratio('front', FSAE_Race_Car); 
+    k1 = k1LR * FSAE_Race_Car.suspension_front.k * 12; % ft
+    k2 = k1;
+    
+    k3LR = get_leverage_ratio('rear', FSAE_Race_Car);
+    k3 = k3LR * FSAE_Race_Car.suspension_rear.k * 12; % ft
+    k4 = k3;
+    
+    kdf = FSAE_Race_Car.wheel_front.k * 12; % ft
+    kpf = FSAE_Race_Car.wheel_front.k * 12; % ft
+    kdr = FSAE_Race_Car.wheel_rear.k * 12; % ft
+    kpr = FSAE_Race_Car.wheel_rear.k * 12; % ft
+    
     K = [k1+k2+k3+k4, -(k1+k2)*lf+(k3+k4)*lr, -(k1-k2)*rf+(k3-k4)*rr, -k1, -k2, -k3, -k4;...
-        -(k1+k2)*lf+(k3+k4)*lr, (k1+k2)*lf2+(k3+k4)*lr^2, (k1-k2)*lf*rf+(k3-k4)*lr*rr, k1*lf, k2*lf, -k3*lr, -k4*lr;...
+        -(k1+k2)*lf+(k3+k4)*lr, (k1+k2)*lf^2+(k3+k4)*lr^2, (k1-k2)*lf*rf+(k3-k4)*lr*rr, k1*lf, k2*lf, -k3*lr, -k4*lr;...
         -(k1-k2)*rf+(k3-k4)*rr, (k1-k2)*lf*rf+(k3-k4)*lr*rr, (k1+k2)*rf^2+(k3+k4)*rr^2, k1*rf, -k2*rf, -k3*rr, k4*rr;...
         -k1, k1*lf, k1*rf, k1+kdf, 0, 0, 0;...
         -k2, k2*lf, -k2*rf, 0, k2+kpf, 0, 0;...
         -k3, -k3*lr, -k3*rr, 0, 0, k3+kpr, 0;...
         -k4, -k4*lr, k4*rr, 0, 0, 0, k4+kdr];
         
-        
-
 else 
     error('something went wrong')
 end
