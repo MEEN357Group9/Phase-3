@@ -28,24 +28,24 @@ sX = size(X0);
 sV = size(V0);
 sA = size(A0);
 
-if sM(1) ~= sM(2) || sC(1) ~= sC(2) || sK(1) ~= sk(2)
-    error('The M,C, and K matrices must be square in size.');
-elseif  size(M) ~= size(C) || size(C) ~= size(K) || size(M) ~= size(K)
-    error('The M,C,and K matrices are not the same size');
-elseif sX(2) ~= 1 || sV(2) ~= 1 || sA ~= 1
-    error('X0, V0, and A0 must be column vectors.');
-elseif sX ~= sV ~= sA
-    error('X0, V0, and A0 must be column vectors with the same amount of rows.');
-end
+% if sM(1) ~= sM(2) || sC(1) ~= sC(2) || sK(1) ~= sK(2)
+%     error('The M,C, and K matrices must be square in size.');
+% elseif  size(M) ~= size(C) || size(C) ~= size(K) || size(M) ~= size(K)
+%     error('The M,C,and K matrices are not the same size');
+% elseif sX(2) ~= 1 || sV(2) ~= 1 || sA ~= 1
+%     error('X0, V0, and A0 must be column vectors.');
+% elseif sX ~= sV ~= sA
+%     error('X0, V0, and A0 must be column vectors with the same amount of rows.');
+% end
 [siz, ~] = size(X0);
-TM = zeros(1);
-XM = zeros(1,siz);
-VM = zeros(1,siz);
-AM = zeros(1,siz);
-XM(1,:) = X0;
-VM(1,:) = V0;
-AM(1,:) = A0;
-TM(1) = D.t_in;
+T = zeros(1);
+X = zeros(1,siz);
+V = zeros(1,siz);
+A = zeros(1,siz);
+X(1,:) = X0;
+V(1,:) = V0;
+A(1,:) = A0;
+T(1) = D.t_in;
 
 t = D.t_prev;
 
@@ -73,31 +73,31 @@ V1 = V0 + h/2.*(A1p+A0);
 
 A1 = M^(-1) * (FN(t,D) - C*V1 - K*X1);
 
-TM(2,:) = t1;
-XM(2,:) = X1;
-VM(2,:) = V1;
-AM(2,:) = A1;
+T(2,:) = t1;
+X(2,:) = X1;
+V(2,:) = V1;
+A(2,:) = A1;
 
 %% Remaining
 for i = 2:D.N
     
     % predict
-    X2p = 1/3.*(4.*XM(i,:) - XM(i-1,:))+ h/6.*(3.*VM(i,:) + VM(i-1,:))...
-        + h^2/36.*(31.*AM(i,:)-AM(i-1,:)); 
-    V2p = 1/3.*(4.* VM(i,:) - VM(i-1,:)) + 2*h/3.*(2.*AM(i,:) - AM(i-1,:));
+    X2p = 1/3.*(4.*X(i,:) - X(i-1,:))+ h/6.*(3.*V(i,:) + V(i-1,:))...
+        + h^2/36.*(31.*A(i,:)-A(i-1,:)); 
+    V2p = 1/3.*(4.* V(i,:) - V(i-1,:)) + 2*h/3.*(2.*A(i,:) - A(i-1,:));
     
     % evaluate
     A2p = M^(-1) * ( FN(t,D) - C*V2p' - K*X2p');
-    TM(i+1) = TM(i) + h;
+    T(i+1) = T(i) + h;
     
-    X2 = 1/3.*(4.*XM(i,:) - XM(i-1,:)) + h/24.*(V2p + 14.*VM(i,:) + VM(i-1,:)) +...
-        h^2/72.*(10.*A2p' + 51.*AM(i,:) - AM(i-1,:));
-    V2 = 1/3.*(4*VM(i,:) - VM(i-1,:)) + 2*h/3.*A2p';
+    X2 = 1/3.*(4.*X(i,:) - X(i-1,:)) + h/24.*(V2p + 14.*V(i,:) + V(i-1,:)) +...
+        h^2/72.*(10.*A2p' + 51.*A(i,:) - A(i-1,:));
+    V2 = 1/3.*(4*V(i,:) - V(i-1,:)) + 2*h/3.*A2p';
     
     A2 = M^(-1) * ( FN(t,D) - C*V2' - K*X2');
-    XM(i+1,:) = X2;
-    VM(i+1,:) = V2;
-    AM(i+1,:) = A2;
+    X(i+1,:) = X2;
+    V(i+1,:) = V2;
+    A(i+1,:) = A2;
     
 
 end

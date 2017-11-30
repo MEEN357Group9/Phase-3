@@ -90,6 +90,7 @@ elseif strcmp(ad3, vibration_model)
     % note: k1 is the front stiffness; k2 is the rear stiffness; kf is the
     % front wheel stiffness; kr is the rear wheel stiffness 
     
+    
     % For front stiffness
     k1LR = get_leverage_ratio('front', FSAE_Race_Car);
     k1 = k1LR * FSAE_Race_Car.suspension_front.k * 12; % ft
@@ -155,8 +156,8 @@ elseif strcmp(ad5, vibration_model)
     k1 = k1LR * FSAE_Race_Car.suspension_front.k * 12; % ft
     k2 = k1;
     
-    k3LR = get_leverage_ratio('rear', FSAE_Race_Car);
-    k3 = k3LR * FSAE_Race_Car.suspension_rear.k * 12; % ft
+    k2LR = get_leverage_ratio('rear', FSAE_Race_Car);
+    k3 = k2LR * FSAE_Race_Car.suspension_rear.k * 12; % ft
     k4 = k3;
         
     K = [k1+k2+k3+k4, -(k1+k2)*lf+(k3+k4)*lr, -(k1-k2)*rf+(k3-k4)*rr;...
@@ -174,13 +175,13 @@ elseif strcmp(ad6, vibration_model)
     rf = FSAE_Race_Car.chassis.radius_f/12; % ft
     rr = FSAE_Race_Car.chassis.radius_r/12; % ft
     
-    k1LR = get_leverage_ratio('front', FSAE_Race_Car); 
-    k1 = k1LR * FSAE_Race_Car.suspension_front.k * 12; % ft
-    k2 = k1;
+    k1LR = get_leverage_ratio('front', FSAE_Race_Car);
+    k2 = k1LR * FSAE_Race_Car.suspension_front.k * 12; % ft;
+    k1 = k2;
     
-    k3LR = get_leverage_ratio('rear', FSAE_Race_Car);
-    k3 = k3LR * FSAE_Race_Car.suspension_rear.k * 12; % ft
-    k4 = k3;
+    k2LR = get_leverage_ratio('rear', FSAE_Race_Car);
+    k4 = k2LR * FSAE_Race_Car.suspension_rear.k * 12; % ft;
+    k3 = k4;
     
     kdf = FSAE_Race_Car.wheel_front.k * 12; % ft
     kpf = FSAE_Race_Car.wheel_front.k * 12; % ft
