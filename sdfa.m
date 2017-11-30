@@ -29,7 +29,7 @@ VM(1,:) = V0;
 AM(1,:) = A0;
 TM(1) = D.t_in;
 
-t = D.t_in;
+t = D.t_prev;
 
 %% Predict
 % integrate for the displacement x and velocity v
