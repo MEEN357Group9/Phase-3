@@ -118,9 +118,7 @@ elseif strcmp(ad5, vibration_model)
     w = ( FSAE_Race_Car.chassis.weight + FSAE_Race_Car.pilot.weight + ...
         FSAE_Race_Car.power_plant.weight); % lbf
     
-    M = get_mass_matrix(vibration_model, FSAE_Race_Car);
-    
-    W = [w;0;0;M(4,4)*32.174;M(5,5)*32.174;M(6,6)*32.174;M(7,7)*32.174];
+    W = [w;0;0];
     
     z0 = K\W;
 
@@ -133,7 +131,11 @@ elseif strcmp(ad6, vibration_model)
     % find the weight (half)
     w = ( FSAE_Race_Car.chassis.weight + FSAE_Race_Car.pilot.weight + ...
         FSAE_Race_Car.power_plant.weight); % lbf
-    W = [w;0;0,];
+    M = get_mass_matrix(vibration_model, FSAE_Race_Car);
+    
+    W = [w;0;0;M(4,4)*32.174;M(5,5)*32.174;M(6,6)*32.174;M(7,7)*32.174];
+    
+    z0 = K\W;
 end
 
 end

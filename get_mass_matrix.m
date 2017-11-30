@@ -120,7 +120,7 @@ elseif strcmp(ad6,vibration_model)
     mf = ( FSAE_Race_Car.wheel_front.weight ) / 32.2; % slugs
     mr = ( FSAE_Race_Car.wheel_rear.weight ) / 32.2; % slugs
     
-    M = [m 0 0 0 0 0 0 0;
+    M = [m 0 0 0 0 0 0;
         0 Jy 0 0 0 0 0;
         0 0 Jx 0 0 0 0;
         0 0 0 mf 0 0 0;
