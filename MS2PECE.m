@@ -69,7 +69,7 @@ X1 = X0 + h/2.*(V1p + V0) - h^2/12.*(A1p-A0);
 
 V1 = V0 + h/2.*(A1p+A0);
 
-%% Evaluate
+%% Evaluate  do it twice
 
 A1 = M^(-1) * (FN(t,D) - C*V1 - K*X1);
 
