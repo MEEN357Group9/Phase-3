@@ -1,7 +1,36 @@
 function [T, X, V, A] = MS2PECE(X0, V0, A0, M, C, K, FN, D)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%PECE method that integrates M(d^2x/dt^2) + C(dx/dt) + Kx = f(t)
+%   Developed by Dr. Alan Freed, this is a third-order accurate method
+%   where an explicit predictor is used to get an initial estimate for the
+%   solution
+%   Inputs:
+%       X0  intial conditions for displacement
+%       V0  inital conditions for velocity
+%       A0  inital conditions for acceleration
+%       M   mass matrix
+%       C   damping matrix
+%       K   stiffness matrix
+%       FN  forcing function handle
+%       D   data structure used with the forcing function handle
+%
+%   Outputs:
+%       T   times for the solutions
+%       X   displacement solutions
+%       V   velocity solutions
+%       A   acceleration solutions
 
+% Input error handling
+sM = size(M);
+sC = size(C);
+sK = size(K);
+
+
+if sM(1) ~= sM(2) || sC(1) ~= sC(2) || sK(1) ~= sk(2)
+    error('The M,C, and K matrices must be square in size.');
+elseif  size(M) ~= size(C) || size(C) ~= size(K) || size(M) ~= size(K)
+    error('The M,C,and K matrices are not the same size');
+elseif 
+end
 [siz, ~] = size(X0);
 TM = zeros(1);
 XM = zeros(1,siz);
