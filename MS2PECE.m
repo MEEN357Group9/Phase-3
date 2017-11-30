@@ -24,12 +24,18 @@ sM = size(M);
 sC = size(C);
 sK = size(K);
 
+sX = size(X0);
+sV = size(V0);
+sA = size(A0);
 
 if sM(1) ~= sM(2) || sC(1) ~= sC(2) || sK(1) ~= sk(2)
     error('The M,C, and K matrices must be square in size.');
 elseif  size(M) ~= size(C) || size(C) ~= size(K) || size(M) ~= size(K)
     error('The M,C,and K matrices are not the same size');
-elseif 
+elseif sX(2) ~= 1 || sV(2) ~= 1 || sA ~= 1
+    error('X0, V0, and A0 must be column vectors.');
+elseif sX ~= sV ~= sA
+    error('X0, V0, and A0 must be column vectors with the same amount of rows.');
 end
 [siz, ~] = size(X0);
 TM = zeros(1);
