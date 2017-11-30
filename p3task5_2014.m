@@ -164,3 +164,7 @@ legend('1/2 car 2 DOF','1/2 car 4 DOF','full car 3 DOF','full car 7 DOF')
 title('Rate of Spin: Pitch of Car Hitting a Speed Bump')
 xlabel('Time [s]')
 ylabel('Acceleration [deg/s^2]')
+
+%% Roll
+
+
