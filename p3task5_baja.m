@@ -168,5 +168,49 @@ ylabel('Acceleration [deg/s^2]')
 
 %% Roll
 
+figure
+
+%Displacement
+subplot(3,1,1)
+plot(T5,X5(:,3),'c', T6,X6(:,3),'m')
+ylim([-4 4])
+legend('full car 3 DOF','full car 7 DOF')
+title('Rotation: Roll of Car Hitting a Speed Bump')
+xlabel('Time [s]')
+ylabel('Rotation [deg]')
+
+% Velocity
+subplot(3,1,2)
+plot(T5,V5(:,3),'c', T6,V6(:,3),'m')
+ylim([-100 100])
+legend('full car 3 DOF','full car 7 DOF')
+title('Spin: Roll of Car Hitting a Speed Bump')
+xlabel('Time [s]')
+ylabel('Velocity [deg/s]')
+
+%Acceleration
+subplot(3,1,3)
+plot(T5,A5(:,3),'c', T6,A6(:,3),'m')
+ylim([-4000 4000])
+legend('full car 3 DOF','full car 7 DOF')
+title('Rate of Spin: Roll of Car Hitting a Speed Bump')
+xlabel('Time [s]')
+ylabel('Acceleration [deg/s^2]')
+
+%% Comparison
+
+figure
+
+% Heave
+subplot(2,2,1)
+
+% Pitch
+subplot(2,2,2)
+
+% Roll
+subplot(2,2,3)
+
+% Warp
+subplot(2,2,4)
 
 
