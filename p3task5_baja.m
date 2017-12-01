@@ -6,7 +6,6 @@
 % Group 9: Kelsey Banasik, Zarah Navarro, Sonia Sanchez, Harland Ashby
 %
 
-
 %%
 % Quarter Car 1 DOF
 run ff_baja_1;
@@ -68,7 +67,6 @@ K = get_stiffness_matrix(D.model, D.car);
 [T4, X4, V4, A4] = MS2PECE(X0, V0, A0, M, C, K, FN, D);
 
 
-
 % Full Car 3 DOF
 run ff_baja_5;
 
@@ -82,7 +80,6 @@ M = get_mass_matrix(D.model, D.car);
 C = get_damping_matrix(D.model, D.car);
 K = get_stiffness_matrix(D.model, D.car);
 [T5, X5, V5, A5] = MS2PECE(X0, V0, A0, M, C, K, FN, D);
-
 
 
 % Full Car 7 DOF
@@ -102,115 +99,154 @@ K = get_stiffness_matrix(D.model, D.car);
 
 %% Heave
 
+figure
+
 %Displacement
-subplot(3,1,1)
+subplot(3,1,1);
 plot(T1,X1(:,1),'k', T2,X2(:,1),'r', T3,X3(:,1),'b', T4,X4(:,1),'g', ...
-    T5,X5(:,1),'c', T6,X6(:,1),'m')
-ylim([-0.3 0.2])
-legend('1/4 car 1 DOF','1/4 car 2 DOF','1/2 car 2 DOF','1/2 car 4 DOF', ...
-    'full car 3 DOF','full car 7 DOF')
-title('Displacements: Heave of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Displacement [ft]')
+    T5,X5(:,1),'c', T6,X6(:,1),'m');
+legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF', ...
+    'Full Car 3 DOF','Full Car 7 DOF');
+title('Heave Displacement of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Displacement [ft]');
 
 % Velocity
-subplot(3,1,2)
+subplot(3,1,2);
 plot(T1,V1(:,1),'k', T2,V2(:,1),'r', T3,V3(:,1),'b', T4,V4(:,1),'g', ...
-    T5,V5(:,1),'c', T6,V6(:,1),'m')
-ylim([-5 10])
-legend('1/4 car 1 DOF','1/4 car 2 DOF','1/2 car 2 DOF','1/2 car 4 DOF', ...
-    'full car 3 DOF','full car 7 DOF')
-title('Velocities: Heave of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Velocity [ft/s]')
+    T5,V5(:,1),'c', T6,V6(:,1),'m');
+legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF', ...
+    'Full Car 3 DOF','Full Car 7 DOF');
+title('Heave Velocity of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Velocity [ft/s]');
 
 %Acceleration
-subplot(3,1,3)
+subplot(3,1,3);
 plot(T1,A1(:,1),'k', T2,A2(:,1),'r', T3,A3(:,1),'b', T4,A4(:,1),'g', ...
-    T5,A5(:,1),'c', T6,A6(:,1),'m')
-ylim([-200 300])
-legend('1/4 car 1 DOF','1/4 car 2 DOF','1/2 car 2 DOF','1/2 car 4 DOF', ...
-    'full car 3 DOF','full car 7 DOF')
-title('Accelerations: Heave of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Acceleration [ft/s^2]')
+    T5,A5(:,1),'c', T6,A6(:,1),'m');
+legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF', ...
+    'Full Car 3 DOF','Full Car 7 DOF');
+title('Heave Acceleration of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Acceleration [ft/s^2]');
 
 %% Pitch
 
 figure
 
 %Displacement
-subplot(3,1,1)
-plot(T3,X3(:,2),'b', T4,X4(:,2),'g', T5,X5(:,2),'c', T6,X6(:,2),'m')
-ylim([-4 4])
-legend('1/2 car 2 DOF','1/2 car 4 DOF','full car 3 DOF','full car 7 DOF')
-title('Rotation: Pitch of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Rotation [deg]')
+subplot(3,1,1);
+plot(T3,X3(:,2)*180/pi,'b', T4,X4(:,2)*180/pi,'g', ...
+    T5,X5(:,2)*180/pi,'c', T6,X6(:,2)*180/pi,'m');
+legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
+title('Pitch Displacement of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Rotation [deg]');
 
 % Velocity
-subplot(3,1,2)
-plot(T3,V3(:,2),'b', T4,V4(:,2),'g', T5,V5(:,2),'c', T6,V6(:,2),'m')
-ylim([-100 100])
-legend('1/2 car 2 DOF','1/2 car 4 DOF','full car 3 DOF','full car 7 DOF')
-title('Spin: Pitch of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Velocity [deg/s]')
+subplot(3,1,2);
+plot(T3,V3(:,2)*180/pi,'b', T4,V4(:,2)*180/pi,'g', ...
+    T5,V5(:,2)*180/pi,'c', T6,V6(:,2)*180/pi,'m');
+legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
+title('Pitch Velocity of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Velocity [deg/s]');
 
 %Acceleration
-subplot(3,1,3)
-plot(T3,A3(:,2),'b', T4,A4(:,2),'g', T5,A5(:,2),'c', T6,A6(:,2),'m')
-ylim([-4000 4000])
-legend('1/2 car 2 DOF','1/2 car 4 DOF','full car 3 DOF','full car 7 DOF')
-title('Rate of Spin: Pitch of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Acceleration [deg/s^2]')
+subplot(3,1,3);
+plot(T3,A3(:,2)*180/pi,'b', T4,A4(:,2)*180/pi,'g', ...
+    T5,A5(:,2)*180/pi,'c', T6,A6(:,2)*180/pi,'m');
+legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
+title('Pitch Acceleration of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Acceleration [deg/s^2]');
 
 %% Roll
 
 figure
 
 %Displacement
-subplot(3,1,1)
-plot(T5,X5(:,3),'c', T6,X6(:,3),'m')
-ylim([-4 4])
-legend('full car 3 DOF','full car 7 DOF')
-title('Rotation: Roll of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Rotation [deg]')
+subplot(3,1,1);
+plot(T5,X5(:,3)*180/pi,'c', T6,X6(:,3)*180/pi,'m');
+legend('Full Car 3 DOF','Full Car 7 DOF');
+title('Roll Displacement of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Rotation [deg]');
 
 % Velocity
-subplot(3,1,2)
-plot(T5,V5(:,3),'c', T6,V6(:,3),'m')
-ylim([-100 100])
-legend('full car 3 DOF','full car 7 DOF')
-title('Spin: Roll of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Velocity [deg/s]')
+subplot(3,1,2);
+plot(T5,V5(:,3)*180/pi,'c', T6,V6(:,3)*180/pi,'m');
+legend('Full Car 3 DOF','Full Car 7 DOF');
+title('Roll Velocity of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Velocity [deg/s]');
 
 %Acceleration
-subplot(3,1,3)
-plot(T5,A5(:,3),'c', T6,A6(:,3),'m')
-ylim([-4000 4000])
-legend('full car 3 DOF','full car 7 DOF')
-title('Rate of Spin: Roll of Car Hitting a Speed Bump')
-xlabel('Time [s]')
-ylabel('Acceleration [deg/s^2]')
+subplot(3,1,3);
+plot(T5,A5(:,3)*180/pi,'c', T6,A6(:,3)*180/pi,'m');
+legend('Full Car 3 DOF','Full Car 7 DOF');
+title('Roll Acceleration of Baja Car over Agony');
+xlabel('Time [s]');
+ylabel('Acceleration [deg/s^2]');
 
 %% Comparison
 
+% Car lengths 
+l = ff_data.car.chassis.length;
+cg = get_cg(ff_data.car); % ft
+lf = cg; % ft
+lr = l - cg; % Wheelbase in ft
+rf = ff_data.car.chassis.radius_f; % ft
+rr = ff_data.car.chassis.radius_r; % ft
+L = lf + lr; % Wheelbase in ft
+W = rf + rr; % Tire Tracking Width
+
+% Vertical Motion for Warp
+zdf = X6(:,4);    % heave of driver front axle
+zpf = X6(:,5);    % heave of passenger front axle
+zpr = X6(:,6);    % heave of passenger rear axle
+zdr = X6(:,7);    % heave of driver rear axle
+
+% Axle Plane z, theta, phi, and omega
+heave_a = (lr/(2*L))*zdf + (lr/(2*L))*zpf + (lf/(2*L))*zpr + (lf/(2*L))*zdr;
+pitch_a = (-1/(2*L))*zdf + (-1/(2*L))*zpf + (1/(2*L))*zpr + (1/(2*L))*zdr;
+roll_a = (-1/(2*W))*zdf + (1/(2*W))*zpf + (1/(2*W))*zpr + (-1/(2*W))*zdr;
+warp_a = (-rr/W)*zdf + (rr/W)*zpf + (-rf/W)*zpr + (rf/W)*zdr;
+
+
+% Motion VS Axle Plane
 figure
 
 % Heave
-subplot(2,2,1)
+subplot(2,2,1);
+plot(T6,heave_a,'r', T6,X6(:,1),'b');
+legend('Axle Plane','Chassis Plane');
+title('Heave Displacement for Baja Car');
+xlabel('Time [s]');
+ylabel('Heave Displacement [ft]');
 
 % Pitch
-subplot(2,2,2)
+subplot(2,2,2);
+plot(T6,pitch_a*180/pi,'r', T6,X6(:,2)*180/pi,'b');
+legend('Axle Plane','Chassis Plane');
+title('Pitch Displacement for Baja Car');
+xlabel('Time [s]');
+ylabel('Pitch Displacement [deg]');
 
 % Roll
-subplot(2,2,3)
+subplot(2,2,3);
+plot(T6,roll_a*180/pi,'r', T6,X6(:,3)*180/pi,'b');
+legend('Axle Plane','Chassis Plane');
+title('Roll Displacement for Baja Car');
+xlabel('Time [s]');
+ylabel('Roll Displacement [deg]');
 
 % Warp
-subplot(2,2,4)
-
+subplot(2,2,4);
+plot(T6,warp_a,'r');
+legend('Axle Plane');
+title('Warp of Axle Plane for Baja Car');
+xlabel('Time [s]');
+ylabel('Warp Displacement [ft]');
 

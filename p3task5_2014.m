@@ -99,6 +99,8 @@ K = get_stiffness_matrix(D.model, D.car);
 
 %% Heave
 
+figure
+
 %Displacement
 subplot(3,1,1);
 plot(T1,X1(:,1),'k', T2,X2(:,1),'r', T3,X3(:,1),'b', T4,X4(:,1),'g', ...
@@ -108,6 +110,7 @@ legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF', ...
 title('Heave Displacement of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Displacement [ft]');
+ylim([-0.3 0.2])
 
 % Velocity
 subplot(3,1,2);
@@ -118,6 +121,7 @@ legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF', ...
 title('Heave Velocity of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Velocity [ft/s]');
+ylim([-5 10])
 
 %Acceleration
 subplot(3,1,3);
@@ -128,6 +132,7 @@ legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF', ...
 title('Heave Acceleration of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Acceleration [ft/s^2]');
+ylim([-200 300])
 
 %% Pitch
 
@@ -141,6 +146,7 @@ legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
 title('Pitch Displacement of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Rotation [deg]');
+ylim([-4 4])
 
 % Velocity
 subplot(3,1,2);
@@ -150,6 +156,7 @@ legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
 title('Pitch Velocity of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Velocity [deg/s]');
+ylim([-100 100])
 
 %Acceleration
 subplot(3,1,3);
@@ -159,6 +166,7 @@ legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
 title('Pitch Acceleration of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Acceleration [deg/s^2]');
+ylim([-4000 4000])
 
 %% Roll
 
@@ -171,6 +179,7 @@ legend('Full Car 3 DOF','Full Car 7 DOF');
 title('Roll Displacement of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Rotation [deg]');
+ylim([-2 2])
 
 % Velocity
 subplot(3,1,2);
@@ -179,6 +188,7 @@ legend('Full Car 3 DOF','Full Car 7 DOF');
 title('Roll Velocity of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Velocity [deg/s]');
+ylim([-100 100])
 
 %Acceleration
 subplot(3,1,3);
@@ -187,6 +197,7 @@ legend('Full Car 3 DOF','Full Car 7 DOF');
 title('Roll Acceleration of 2014 Car Hitting a Speed Bump');
 xlabel('Time [s]');
 ylabel('Acceleration [deg/s^2]');
+ylim([-4000 4000])
 
 %% Comparison
 
@@ -223,6 +234,7 @@ legend('Axle Plane','Chassis Plane');
 title('Heave Displacement for 2014 Car');
 xlabel('Time [s]');
 ylabel('Heave Displacement [ft]');
+ylim([-0.06 0.08])
 
 % Pitch
 subplot(2,2,2);
@@ -231,6 +243,7 @@ legend('Axle Plane','Chassis Plane');
 title('Pitch Displacement for 2014 Car');
 xlabel('Time [s]');
 ylabel('Pitch Displacement [deg]');
+ylim([-1.5 1.5])
 
 % Roll
 subplot(2,2,3);
@@ -239,6 +252,7 @@ legend('Axle Plane','Chassis Plane');
 title('Roll Displacement for 2014 Car');
 xlabel('Time [s]');
 ylabel('Roll Displacement [deg]');
+ylim([-2 2])
 
 % Warp
 subplot(2,2,4);
@@ -247,3 +261,5 @@ legend('Axle Plane');
 title('Warp of Axle Plane for 2014 Car');
 xlabel('Time [s]');
 ylabel('Warp Displacement [ft]');
+ylim([-0.08 0.08])
+
