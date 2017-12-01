@@ -83,7 +83,6 @@ K = get_stiffness_matrix(D.model, D.car);
 [T5, X5, V5, A5] = MS2PECE(X0, V0, A0, M, C, K, FN, D);
 
 
-
 % Full Car 7 DOF
 run ff_2014_6;
 
@@ -197,6 +196,24 @@ xlabel('Time [s]')
 ylabel('Acceleration [deg/s^2]')
 
 %% Comparison
+
+% Car lengths 
+l = ff_data.car.chassis.length;
+cg = get_cg(ff_data.car); % ft
+lf = cg; % ft
+lr = l - cg; % ft
+rf = ff_data.car.chassis.radius_f; % ft
+rr = ff_data.car.chassis.radius_r; % ft
+
+L = lf + lr; % Wheelbase
+W = rf + rr; % Tire Tracking Width
+A = [ lr/(2*L), lr/(2*L), lf/(2*L), lf/(2*L); ...
+    -1/(2*L), -1/(2*L), 1/(2*L), 1/(2*L); ...
+    -1/(2*W), 1/(2*W), 1/(2*W), -1/(2*W); ...
+    -rr/W, rr/W, -rf/W, rf/W];
+B = [X1(1,1); X1(1,1); X1(1,1); X1(1,1)];
+q = A\B
+
 
 figure
 
