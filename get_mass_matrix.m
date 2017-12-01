@@ -106,7 +106,7 @@ elseif strcmp(ad5,vibration_model)
         + FSAE_Race_Car.power_plant.weight ) / 32.2 ; % slugs
     % the moment of interia 
     Jy = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
-    Jx = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    Jx = get_Jx(FSAE_Race_Car); % slug ft^2 / rad
     
     M = [m 0 0;0 Jy 0;0 0 Jx];
     
@@ -116,7 +116,7 @@ elseif strcmp(ad6,vibration_model)
         + FSAE_Race_Car.power_plant.weight ) / 32.2 ; % slugs
     % the moment of interia 
     Jy = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
-    Jx = get_Jy(FSAE_Race_Car); % slug ft^2 / rad
+    Jx = get_Jx(FSAE_Race_Car); % slug ft^2 / rad
     mf = ( FSAE_Race_Car.wheel_front.weight ) / 32.2; % slugs
     mr = ( FSAE_Race_Car.wheel_rear.weight ) / 32.2; % slugs
     
