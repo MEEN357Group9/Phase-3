@@ -143,7 +143,7 @@ subplot(3,1,1);
 plot(T3,X3(:,2)*180/pi,'b', T4,X4(:,2)*180/pi,'g', ...
     T5,X5(:,2)*180/pi,'c', T6,X6(:,2)*180/pi,'m');
 legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
-title('Pitch Displacement of 2014 Car Hitting a Speed Bump');
+title('Pitch Displacement of 2016 Car over a Tar Strip');
 xlabel('Time [s]');
 ylabel('Rotation [deg]');
 ylim([-0.02 0.06])
@@ -153,7 +153,7 @@ subplot(3,1,2);
 plot(T3,V3(:,2)*180/pi,'b', T4,V4(:,2)*180/pi,'g', ...
     T5,V5(:,2)*180/pi,'c', T6,V6(:,2)*180/pi,'m');
 legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF');
-title('Pitch Velocity of 2014 Car Hitting a Speed Bump');
+title('Pitch Velocity of 2016 Car over a Tar Strip');
 xlabel('Time [s]');
 ylabel('Velocity [deg/s]');
 ylim([-10 10])
