@@ -146,7 +146,10 @@ switch ff_data.model
         k2 = k3LR * ff_data.car.suspension_rear.k * 12; % ft
        
         % Forcing Function Matrix
-        FF = [w ; 0 ; (wf - c1*dRdt_df - k1*R_df) ; (wr - c2*dRdt_dr - k2*R_dr)];
+        FF = [w ; 
+            0 ; 
+            (wf - c1*dRdt_df - k1*R_df) ; 
+            (wr - c2*dRdt_dr - k2*R_dr)];
     
     case 'full_car_3_DOF'
         % Full car with 3 degrees of freedom
@@ -225,9 +228,13 @@ switch ff_data.model
         kpr = kdr; % ft
         
         % Forcing Function
-        FF = [w; 0; 0; wdf - cdf*dRdt_df - kdf*R_df; ...
-            wpf - cpf*dRdt_pf - kpf*R_pf; wpr - cpr*dRdt_pr - kpr*R_pr; ...
-            wdr - cdr*dRdt_dr - kdr*R_dr];
+        FF = [w;
+            0;
+            0;
+            wdf - cdf.*dRdt_df - kdf.*R_df; 
+            wpf - cpf.*dRdt_pf - kpf.*R_pf;
+            wpr - cpr.*dRdt_pr - kpr.*R_pr; 
+            wdr - cdr.*dRdt_dr - kdr.*R_dr];
         
 end
 
