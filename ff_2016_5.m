@@ -34,7 +34,7 @@ value10 = 2500;
 value11 = @(wheelbase,X_enter,X,V)tar_strip(wheelbase,X_enter,X,V);
 value12 = 1; % ft
 value13 = @(wheelbase,X_enter,X,V)tar_strip(wheelbase,X_enter,X,V);
-value14 = 2; % ft
+value14 = 10; % ft
 
 % Now to set up the struct for the car
 ff_data = struct(field1, value1, field2, value2, field3, value3, field4, value4, ...
