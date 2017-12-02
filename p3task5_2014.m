@@ -204,12 +204,12 @@ ylim([-4000 4000])
 %% Comparison
 
 % Car lengths 
-l = ff_data.car.chassis.length;
-cg = get_cg(ff_data.car); % ft
+l = ff_data.car.chassis.wheelbase/12;
+cg = get_cg(FSAE_Race_Car); % ft
 lf = cg; % ft
 lr = l - cg; % Wheelbase in ft
-rf = ff_data.car.chassis.radius_f; % ft
-rr = ff_data.car.chassis.radius_r; % ft
+rf = ff_data.car.chassis.radius_f/12; % ft
+rr = ff_data.car.chassis.radius_r/12; % ft
 L = lf + lr; % Wheelbase in ft
 W = rf + rr; % Tire Tracking Width
 
