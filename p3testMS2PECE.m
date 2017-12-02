@@ -20,6 +20,7 @@ K   = get_stiffness_matrix(D.model, D.car);
 [TN, XN, VN, AN] = Newmark(X0, V0, A0, M, C, K, FN, D);
 % construct the heave curves acquired from both integrators
 
+%{
 figure(1)
 % Displacement curves
 X1 = zeros(D.N+1,1);
@@ -62,3 +63,4 @@ title('Accelerations: Heave of Car Driving Agony Way')
 xlabel('Time [s]')
 ylabel('Acceleration [ft/s^2]')
 legend('MS2PECE', 'Newmark')
+%}
