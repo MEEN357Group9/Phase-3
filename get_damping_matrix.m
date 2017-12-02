@@ -91,12 +91,12 @@ elseif strcmp(ad3, vibration_model)
     % damp; cf is the front wheel damp; cr is the rear suspension damp
     
     % front damp
-    
-    c1 = FSAE_Race_Car.suspension_front.c*12 ; % ft
+    LRF = get_leverage_ratio('front', FSAE_Race_Car);
+    c1 = LRF*FSAE_Race_Car.suspension_front.c*12 ; % ft
     
     % rear damp
-    
-    c2 = FSAE_Race_Car.suspension_rear.c*12 ; % ft
+    LRR = get_leverage_ratio('rear', FSAE_Race_Car);
+    c2 = LRR*FSAE_Race_Car.suspension_rear.c*12 ; % ft
     
     
     % matrix form 
@@ -120,12 +120,12 @@ elseif strcmp(ad4, vibration_model)
     % damp; cf is the front wheel damp; cr is the rear suspension damp
     
      % front damp
-   
-    c1 = FSAE_Race_Car.suspension_front.c * 12; % ft
+    LRF = get_leverage_ratio('front', FSAE_Race_Car);
+    c1 = LRF*FSAE_Race_Car.suspension_front.c * 12; % ft
     
     % rear damp
-    
-    c2 =  FSAE_Race_Car.suspension_rear.c * 12; %ft
+    LRR = get_leverage_ratio('rear', FSAE_Race_Car);
+    c2 =  LRR*FSAE_Race_Car.suspension_rear.c * 12; %ft
     
     % front wheel damp
     cf = FSAE_Race_Car.wheel_front.c * 12; % ft
@@ -149,10 +149,13 @@ elseif strcmp(ad5, vibration_model)
     rf = FSAE_Race_Car.chassis.radius_f/12; % ft
     rr = FSAE_Race_Car.chassis.radius_r/12; % ft
     
-    c1 = FSAE_Race_Car.suspension_front.c * 12; %ft
-    c2 = FSAE_Race_Car.suspension_front.c * 12; %ft
-    c3 = FSAE_Race_Car.suspension_rear.c * 12; %ft;
-    c4 = FSAE_Race_Car.suspension_rear.c * 12; %ft;
+    LRF = get_leverage_ratio('front', FSAE_Race_Car);
+    c1 = LRF*FSAE_Race_Car.suspension_front.c * 12; %ft
+    c2 = LRF*FSAE_Race_Car.suspension_front.c * 12; %ft
+    
+    LRR = get_leverage_ratio('rear', FSAE_Race_Car);
+    c3 = LRR*FSAE_Race_Car.suspension_rear.c * 12; %ft;
+    c4 = LRR*FSAE_Race_Car.suspension_rear.c * 12; %ft;
     
     
     C = [ c1+c2+c3+c4, -(c1+c2)*lf+(c3+c4)*lr, -(c1-c2)*rf+(c3-c4)*rr;...
@@ -169,10 +172,13 @@ elseif strcmp(ad6, vibration_model)
     rf = FSAE_Race_Car.chassis.radius_f/12; % ft
     rr = FSAE_Race_Car.chassis.radius_r/12; % ft
     
-    c1 = FSAE_Race_Car.suspension_front.c * 12; %ft
-    c2 = FSAE_Race_Car.suspension_front.c * 12; %ft
-    c3 = FSAE_Race_Car.suspension_rear.c * 12; %ft;
-    c4 = FSAE_Race_Car.suspension_rear.c * 12; %ft;
+    LRF = get_leverage_ratio('front', FSAE_Race_Car);
+    c1 = LRF*FSAE_Race_Car.suspension_front.c * 12; %ft
+    c2 = LRF*FSAE_Race_Car.suspension_front.c * 12; %ft
+    
+    LRR = get_leverage_ratio('rear', FSAE_Race_Car);
+    c3 = LRR*FSAE_Race_Car.suspension_rear.c * 12; %ft;
+    c4 = LRR*FSAE_Race_Car.suspension_rear.c * 12; %ft;
     
     cdf = FSAE_Race_Car.wheel_front.c * 12; % ft
     cpf = FSAE_Race_Car.wheel_front.c * 12; % ft
