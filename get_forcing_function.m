@@ -154,13 +154,13 @@ switch ff_data.model
             ff_data.car.power_plant.weight); % lbf
         
         % Front damp
-        %c1LR = get_leverage_ratio('front', ff_data.car);
-        c1 = ff_data.car.suspension_front.c*12; % ft
+        c1LR = get_leverage_ratio('front', ff_data.car);
+        c1 = c1LR * ff_data.car.suspension_front.c*12; % ft
         c2 = c1;
     
         % Rear damp
-        %c3LR = get_leverage_ratio('rear', ff_data.car);
-        c3 = ff_data.car.suspension_rear.c*12; %ft
+        c3LR = get_leverage_ratio('rear', ff_data.car);
+        c3 = c3LR * ff_data.car.suspension_rear.c*12; %ft
         c4 = c3;
         
         % Front Stiffness
@@ -201,23 +201,27 @@ switch ff_data.model
         wpr = wdr; % lbf
     
         % Front Damp
-        %cdfLR = get_leverage_ratio('front', ff_data.car);
-        cdf = ff_data.car.suspension_front.c*12; % ft
+        cdfLR = get_leverage_ratio('front', ff_data.car);
+        %cdfLR = 1;
+        cdf = cdfLR * ff_data.car.suspension_front.c*12; % ft
         cpf = cdf; % ft
     
         % Rear Damp
-        %cdrLR = get_leverage_ratio('rear', ff_data.car);
-        cdr = ff_data.car.suspension_rear.c*12; %ft
+        cdrLR = get_leverage_ratio('rear', ff_data.car);
+        %cdrLR = 1;
+        cdr = cdrLR * ff_data.car.suspension_rear.c*12; %ft
         cpr = cdr; % ft
         
         % For Front Stiffness
-        %kdfLR = get_leverage_ratio('front', ff_data.car);
-        kdf = ff_data.car.suspension_front.k*12; % ft
+        kdfLR = get_leverage_ratio('front', ff_data.car);
+        %kdfLR = 1;
+        kdf = kdfLR * ff_data.car.suspension_front.k*12; % ft
         kpf = kdf; % ft
     
         % For Rear Stiffness
-        %kdrLR = get_leverage_ratio('rear', ff_data.car);
-        kdr = ff_data.car.suspension_rear.k*12; % ft
+        kdrLR = get_leverage_ratio('rear', ff_data.car);
+        %kdrLR = 1;
+        kdr = kdrLR * ff_data.car.suspension_rear.k*12; % ft
         kpr = kdr; % ft
         
         % Forcing Function
