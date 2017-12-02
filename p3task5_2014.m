@@ -7,6 +7,8 @@
 %
 
 %%
+close all;
+
 % Quarter Car 1 DOF
 run ff_2014_1;
 

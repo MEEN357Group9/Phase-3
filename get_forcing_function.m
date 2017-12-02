@@ -62,8 +62,11 @@ switch ff_data.model
         % Average damping
         k = (KF + KR)/2*12; % gives units of lb/ft
         
+        r_reg = (R_df + R_dr) / 2;
+        r_dot = (dRdt_df + dRdt_dr) / 2;
+        
         %Forcing function 
-        FF = (w - c*dRdt_df - k*R_df);
+        FF = (w - c*r_dot - k*r_reg);
         
     case 'quarter_car_2_DOF'
         %For quater car 2 DOF
@@ -78,8 +81,11 @@ switch ff_data.model
         % front spring constant
         k=(ff_data.car.wheel_front.k+ff_data.car.wheel_rear.k)/2*12; % ft
 
+        r_reg = (R_df + R_dr) / 2;
+        r_dot = (dRdt_df + dRdt_dr) / 2;
+        
         % forcing function matrix 
-        FF=[w; ww-c*dRdt_df-k*R_df];
+        FF=[w; ww-c*r_dot-k*r_reg];
         
     case 'half_car_2_DOF'
         % For half car 2 DOF
@@ -104,7 +110,7 @@ switch ff_data.model
         k2 = k3LR * ff_data.car.suspension_rear.k * 12; % ft
         
         % getting the lengths 
-        l = ff_data.car.chassis.length;
+        l = ff_data.car.chassis.wheelbase/12;
         cg = get_cg(ff_data.car); % ft
         lf = cg; % ft
         lr = l - cg; % ft
@@ -125,19 +131,19 @@ switch ff_data.model
         
         % Front Damp
         c1LR = get_leverage_ratio('front', ff_data.car);
-        c1 = c1LR * ff_data.car.suspension_front.c / 12; % ft
+        c1 = c1LR * ff_data.car.suspension_front.c * 12; % ft
     
         % Rear Damp
         c2LR = get_leverage_ratio('rear', ff_data.car);
-        c2 = c2LR * ff_data.car.suspension_rear.c / 12; %ft
+        c2 = c2LR * ff_data.car.suspension_rear.c * 12; %ft
         
         % For Front Stiffness
         k1LR = get_leverage_ratio('front', ff_data.car);
-        k1 = k1LR * ff_data.car.suspension_front.k / 12; % ft
+        k1 = k1LR * ff_data.car.suspension_front.k * 12; % ft
     
         % For Rear Stiffness
         k3LR = get_leverage_ratio('rear', ff_data.car);
-        k2 = k3LR * ff_data.car.suspension_rear.k / 12; % ft
+        k2 = k3LR * ff_data.car.suspension_rear.k * 12; % ft
        
         % Forcing Function Matrix
         FF = [w ; 0 ; (wf - c1*dRdt_df - k1*R_df) ; (wr - c2*dRdt_dr - k2*R_dr)];
@@ -148,32 +154,32 @@ switch ff_data.model
             ff_data.car.power_plant.weight); % lbf
         
         % Front damp
-        c1LR = get_leverage_ratio('front', ff_data.car);
-        c1 = c1LR * ff_data.car.suspension_front.c * 12; % ft
+        %c1LR = get_leverage_ratio('front', ff_data.car);
+        c1 = ff_data.car.suspension_front.c*12; % ft
         c2 = c1;
     
         % Rear damp
-        c3LR = get_leverage_ratio('rear', ff_data.car);
-        c3 = c3LR * ff_data.car.suspension_rear.c * 12; %ft
+        %c3LR = get_leverage_ratio('rear', ff_data.car);
+        c3 = ff_data.car.suspension_rear.c*12; %ft
         c4 = c3;
         
         % Front Stiffness
         k1LR = get_leverage_ratio('front', ff_data.car);
-        k1 = k1LR * ff_data.car.suspension_front.k * 12; % ft
+        k1 = k1LR * ff_data.car.suspension_front.k*12; % ft
         k2 = k1;
     
         % Rear Stiffness
         k3LR = get_leverage_ratio('rear', ff_data.car);
-        k3 = k3LR * ff_data.car.suspension_rear.k * 12; % ft
+        k3 = k3LR * ff_data.car.suspension_rear.k*12; % ft
         k4 = k3;
         
         % Car lengths 
-        l = ff_data.car.chassis.length;
+        l = ff_data.car.chassis.wheelbase/12;
         cg = get_cg(ff_data.car); % ft
         lf = cg; % ft
         lr = l - cg; % ft
-        rf = ff_data.car.chassis.radius_f; % ft
-        rr = ff_data.car.chassis.radius_r; % ft
+        rf = ff_data.car.chassis.radius_f/12; % ft
+        rr = ff_data.car.chassis.radius_r/12; % ft
         
         % Forcing Function Matrix
         FF = [w - c1*dRdt_df - c2*dRdt_pf - c3*dRdt_pr - c4*dRdt_dr ...
@@ -195,23 +201,23 @@ switch ff_data.model
         wpr = wdr; % lbf
     
         % Front Damp
-        cdfLR = get_leverage_ratio('front', ff_data.car);
-        cdf = cdfLR * ff_data.car.suspension_front.c * 12; % ft
+        %cdfLR = get_leverage_ratio('front', ff_data.car);
+        cdf = ff_data.car.suspension_front.c*12; % ft
         cpf = cdf; % ft
     
         % Rear Damp
-        cdrLR = get_leverage_ratio('rear', ff_data.car);
-        cdr = cdrLR * ff_data.car.suspension_rear.c * 12; %ft
+        %cdrLR = get_leverage_ratio('rear', ff_data.car);
+        cdr = ff_data.car.suspension_rear.c*12; %ft
         cpr = cdr; % ft
         
         % For Front Stiffness
-        kdfLR = get_leverage_ratio('front', ff_data.car);
-        kdf = kdfLR * ff_data.car.suspension_front.k * 12; % ft
+        %kdfLR = get_leverage_ratio('front', ff_data.car);
+        kdf = ff_data.car.suspension_front.k*12; % ft
         kpf = kdf; % ft
     
         % For Rear Stiffness
-        kdrLR = get_leverage_ratio('rear', ff_data.car);
-        kdr = kdrLR * ff_data.car.suspension_rear.k * 12; % ft
+        %kdrLR = get_leverage_ratio('rear', ff_data.car);
+        kdr = ff_data.car.suspension_rear.k*12; % ft
         kpr = kdr; % ft
         
         % Forcing Function
